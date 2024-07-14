@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/dmast3r/go-forge/app/constants"
 )
 
 func handlePostRequest(request Request) string {
@@ -17,7 +19,7 @@ func handlePostRequest(request Request) string {
 
 func handleFileUploadRequest(request Request) string {
 	fileName := strings.Split(request.RequestLine.Path, "/")[2]
-	filePath := filepath.Join(os.Getenv("WORKING_DIRECTORY"), fileName)
+	filePath := filepath.Join(os.Getenv(constants.WORKING_DIRECTORY_ENV_NAME), fileName)
 	content := request.Body
 
 	err := os.WriteFile(filePath, []byte(content), 0644)

@@ -79,5 +79,5 @@ func parseCommandLineArguments() {
 }
 
 func setWorkingDirectory(directory string) {
-	os.Setenv("WORKING_DIRECTORY", directory)
+	os.Setenv(constants.WORKING_DIRECTORY_ENV_NAME, directory)
 }

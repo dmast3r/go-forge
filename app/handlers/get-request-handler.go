@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/dmast3r/go-forge/app/constants"
 	"github.com/dmast3r/go-forge/app/utils"
 )
 
@@ -52,7 +53,7 @@ func userAgentResponseGenerator(userAgent string, needsCompression bool, compres
 }
 
 func fileResponseGenerator(fileName string, needsCompression bool, compressionSchemes string) string {
-	filePath := filepath.Join(os.Getenv("WORKING_DIRECTORY"), fileName)
+	filePath := filepath.Join(os.Getenv(constants.WORKING_DIRECTORY_ENV_NAME), fileName)
 	content, err := os.ReadFile(filePath)
 
 	if err != nil {
