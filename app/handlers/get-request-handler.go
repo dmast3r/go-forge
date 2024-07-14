@@ -22,7 +22,7 @@ func handleGetRequest(request Request) string {
 	} else if paths[1] == "user-agent" {
 		return userAgentResponseGenerator(request.Headers["User-Agent"], false, compressionSchemes)
 	} else if paths[1] == "files" && len(paths) > 2 {
-		return fileResponseGenerator(paths[2], false, compressionSchemes)
+		return fileResponseGenerator(paths[2], compressionSchemes)
 	}
 
 	return "HTTP/1.1 404 Not Found\r\n\r\n" // TODO: handle other paths
@@ -52,7 +52,7 @@ func userAgentResponseGenerator(userAgent string, needsCompression bool, compres
 	return handleResponse("200 OK", userAgent, compressionSchemes, responseHeaders)
 }
 
-func fileResponseGenerator(fileName string, needsCompression bool, compressionSchemes string) string {
+func fileResponseGenerator(fileName, compressionSchemes string) string {
 	filePath := filepath.Join(os.Getenv(constants.WORKING_DIRECTORY_ENV_NAME), fileName)
 	content, err := os.ReadFile(filePath)
 
