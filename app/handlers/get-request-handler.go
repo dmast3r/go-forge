@@ -20,7 +20,7 @@ func handleGetRequest(request Request) string {
 	} else if paths[1] == "echo" && len(paths) > 2 {
 		return echoResponseGenerator(paths[2], compressionSchemes)
 	} else if paths[1] == "user-agent" {
-		return userAgentResponseGenerator(request.Headers["User-Agent"], false, compressionSchemes)
+		return userAgentResponseGenerator(request.Headers["User-Agent"], compressionSchemes)
 	} else if paths[1] == "files" && len(paths) > 2 {
 		return fileResponseGenerator(paths[2], compressionSchemes)
 	}
@@ -43,7 +43,7 @@ func echoResponseGenerator(echoString string, compressionSchemes string) string 
 	return handleResponse("200 OK", echoString, compressionSchemes, responseHeaders)
 }
 
-func userAgentResponseGenerator(userAgent string, needsCompression bool, compressionSchemes string) string {
+func userAgentResponseGenerator(userAgent, compressionSchemes string) string {
 	responseHeaders := map[string]string{
 		"Content-Type":   "text/plain",
 		"Content-Length": fmt.Sprintf("%d", len(userAgent)),
