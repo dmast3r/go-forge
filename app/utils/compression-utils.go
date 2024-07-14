@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"compress/gzip"
 	"fmt"
 	"strings"
-	"compress/gzip"
 )
 
 type Compressor interface {

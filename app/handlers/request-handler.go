@@ -4,11 +4,11 @@ func HandleRequest(request Request) string {
 	return requestHandlerFactory(request.RequestLine.Method)(request)
 }
 
-type requestHandler func (request Request) string
+type requestHandler func(request Request) string
 
 func requestHandlerFactory(methodType string) requestHandler {
 	handlerMap := map[string]requestHandler{
-		"GET": handleGetRequest,
+		"GET":  handleGetRequest,
 		"POST": handlePostRequest,
 	}
 

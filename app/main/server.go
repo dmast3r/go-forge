@@ -1,12 +1,12 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
-	"flag"
 
 	"github.com/dmast3r/go-forge/app/constants"
 	"github.com/dmast3r/go-forge/app/handlers"
@@ -58,7 +58,7 @@ func handleConnection(conn net.Conn) {
 			log.Printf("Error reading from connection: %v", err)
 			break
 		}
-		
+
 		rawRequest := string(buffer[:n])
 		log.Printf("Received request: %s", rawRequest)
 		response := handlers.HandleRequest(handlers.ParseRequest(rawRequest))

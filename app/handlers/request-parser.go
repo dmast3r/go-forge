@@ -3,15 +3,15 @@ package handlers
 import "strings"
 
 type RequestLine struct {
-	Method string
-	Path   string
+	Method      string
+	Path        string
 	HttpVersion string
 }
 
 type Request struct {
 	RequestLine RequestLine
-	Headers map[string]string
-	Body string
+	Headers     map[string]string
+	Body        string
 }
 
 func ParseRequest(request string) Request {
@@ -20,8 +20,8 @@ func ParseRequest(request string) Request {
 
 	return Request{
 		RequestLine: parseRequestLine(requestLine),
-		Headers: parseHeaders(headers),
-		Body: body,
+		Headers:     parseHeaders(headers),
+		Body:        body,
 	}
 }
 
@@ -30,8 +30,8 @@ func parseRequestLine(requestLine string) RequestLine {
 	path, httpVersion, _ := strings.Cut(rest, " ")
 
 	return RequestLine{
-		Method: method,
-		Path: path,
+		Method:      method,
+		Path:        path,
 		HttpVersion: httpVersion,
 	}
 }
@@ -44,6 +44,6 @@ func parseHeaders(headers string) map[string]string {
 		headerName, headerValue, _ := strings.Cut(headerLine, ": ")
 		headersMap[headerName] = headerValue
 	}
-	
+
 	return headersMap
 }
