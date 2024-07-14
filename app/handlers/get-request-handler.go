@@ -1,10 +1,12 @@
-package main
+package handlers
 
 import (
 	"strings"
 	"os"
 	"path/filepath"
 	"fmt"
+
+	"github.com/dmast3r/go-forge/app/utils"
 )
 
 func handleGetRequest(request Request) string {
@@ -82,9 +84,9 @@ func handleResponse(statusCode, response, compressionSchemes string, responseHea
 	return responseStatusLineGenerator(statusCode) + responseHeaderGenerator(responseHeaders) + compressedResponse
 }
 
-func getCompressor(compressionSchemes string) (string, Compressor) {
+func getCompressor(compressionSchemes string) (string, utils.Compressor) {
 	for _, compressionScheme := range strings.Split(compressionSchemes, ", ") {
-		if compressor, err := GetCompressor(compressionScheme); err == nil {
+		if compressor, err := utils.GetCompressor(compressionScheme); err == nil {
 			return compressionScheme, compressor
 		}
 	}

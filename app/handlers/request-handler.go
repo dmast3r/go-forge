@@ -1,4 +1,4 @@
-package main
+package handlers
 
 func HandleRequest(request Request) string {
 	return requestHandlerFactory(request.RequestLine.Method)(request)

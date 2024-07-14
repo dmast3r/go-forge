@@ -7,18 +7,21 @@ import (
 	"os/signal"
 	"syscall"
 	"flag"
+
+	"github.com/dmast3r/go-forge/app/constants"
+	"github.com/dmast3r/go-forge/app/handlers"
 )
 
 func main() {
 	parseCommandLineArguments()
 
-	l, err := net.Listen("tcp", ":"+Port)
+	l, err := net.Listen("tcp", ":"+constants.Port)
 	if err != nil {
-		log.Fatalf("Failed to bind to port %s: %v", Port, err)
+		log.Fatalf("Failed to bind to port %s: %v", constants.Port, err)
 	}
 	defer l.Close()
 
-	log.Printf("Server is listening on port %s", Port)
+	log.Printf("Server is listening on port %s", constants.Port)
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
@@ -58,7 +61,7 @@ func handleConnection(conn net.Conn) {
 		
 		rawRequest := string(buffer[:n])
 		log.Printf("Received request: %s", rawRequest)
-		response := HandleRequest(ParseRequest(rawRequest))
+		response := handlers.HandleRequest(handlers.ParseRequest(rawRequest))
 
 		_, err = conn.Write([]byte(response))
 		if err != nil {

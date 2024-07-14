@@ -1,0 +1,17 @@
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.out
+
+*.test
+
+go.work
+
+.vscode/
+.idea/
+
+.DS_Store
+Thumbs.db
